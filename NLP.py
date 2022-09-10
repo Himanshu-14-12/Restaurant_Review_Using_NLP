@@ -21,4 +21,15 @@ for _ in range(0,1000):
     review = ' '.join(review)
     corpus.append(review)
     
-    
+from sklearn.feature_extraction.text import CountVectorizer
+
+cv=CountVectorizer(max_features = 600)
+X=cv.fit_transform(corpus).toarray()
+y=df.iloc[:,-1].values
+
+from sklearn.naive_bayes import GaussianNB
+classifier = GaussianNB()
+classifier.fit(X_train, y_train)
+y_pred=classifier.predict(X_test)
+from sklearn.metrics import confusion_matrix
+cm = confusion_matrix(y_test, y_pred)
